@@ -3,8 +3,7 @@ pipeline{
     stages{
         stage("compilePhase"){
             steps{
-                bat "cd loginmicroservice"
-                bat "mvn compile"
+                bat "cd loginmicroservice & mvn compile"
             }
         }
         stage("packagePhase"){
