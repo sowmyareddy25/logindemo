@@ -1,5 +1,7 @@
 package com.example.logindemo;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +23,21 @@ public class LoginController {
 	
 	@RequestMapping("/login")
 	public String loginHome(@RequestParam("userName") String userName, 
-			      @RequestParam("password") String password ) {
-		
+			      @RequestParam("password") String password, Model model) {
+		Optional<UserDTO> u=null;
 		try {
-			userDAO.findByName(userName);
-			return "home";
+			u=userDAO.findByName(userName);
+		
 		}catch(Exception e) {
 			return "login";
 		}
+		if(u.isPresent()) {
+			model.addAttribute("UserName", userName);
+			return "home";
+		}
 		
-		
+		model.addAttribute("error","User not found");
+		return "login";
 		
 	}
 
