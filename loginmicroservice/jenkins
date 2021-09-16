@@ -8,7 +8,7 @@ pipeline{
         }
         stage("packagePhase"){
             steps{
-                bat "mvn clean package"
+               bat "cd loginmicroservice & mvn clean package"
             }
         }
     }
